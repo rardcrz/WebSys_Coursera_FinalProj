@@ -1,0 +1,132 @@
+/* ============================================================
+   BASE / MOBILE-FIRST STYLES
+   No media query here — this is what phones see by default.
+   ============================================================ */
+
+html {
+    scroll-behavior: smooth;
+    /* powers the "Jump to top" link; turned off below for reduced-motion users */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #111111;
+    margin: 0;
+    padding: 20px;
+}
+
+header,
+footer {
+    text-align: center;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+a {
+    color: #0645ad;
+    text-decoration: none;
+}
+
+/* Requirement 4.1 — mobile: one column grid, 10px gap */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+figure {
+    margin: 0;
+    padding: 15px;
+    background-color: #f2f2f2;
+    color: #111111;
+    border: 2px solid #999999;
+    text-align: center;
+}
+
+figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+figcaption {
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+
+/* ============================================================
+   TABLET VIEW — triggers at 772px
+   ============================================================ */
+@media screen and (min-width: 772px) {
+
+    /* 5.1 — two column grid */
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 5.2 — circular figures */
+    .grid figure {
+        border-radius: 50%;
+    }
+
+    /* 5.3 — last figure spans both columns */
+    .grid figure:last-child {
+        grid-column: span 2;
+    }
+}
+
+
+/* ============================================================
+   LARGE SCREEN VIEW — triggers at 992px
+   Note: grid-template-columns is NOT repeated here — the
+   two-column rule from the 772px query still applies, since
+   a screen wider than 992px also matches that query.
+   ============================================================ */
+@media screen and (min-width: 992px) {
+
+    /* 6.1 — every 3rd figure spans both columns
+       (nth-child(3n) = 3rd, 6th, 9th...) */
+    .grid figure:nth-child(3n) {
+        grid-column: span 2;
+    }
+
+    /* 6.2 — remove the circular shape at large screens
+       Deliberately NOT using max-width anywhere here —
+       max-width on a spanned figure/image would stop it
+       from actually stretching across both grid columns. */
+    .grid figure {
+        border-radius: 0;
+    }
+}
+
+
+/* ============================================================
+   PREFERS-REDUCED-MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+        /* removes the smooth-scroll animation */
+    }
+}
+
+
+/* ============================================================
+   PREFERS-COLOR-SCHEME: DARK
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+    figure {
+        background-color: #1a1a1a;
+        color: #ffe066;
+        border-color: #000000;
+    }
+}
